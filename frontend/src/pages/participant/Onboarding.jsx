@@ -14,7 +14,7 @@ export default function Onboarding() {
     const fetchOnboardingData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/participant/onboarding-data', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/participant/onboarding-data`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -54,7 +54,7 @@ export default function Onboarding() {
       const token = localStorage.getItem('token');
       const payload = isSkip ? { topics: [], clubs: [] } : { topics: selectedTopics, clubs: selectedClubs };
       
-      const response = await fetch('${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/participant/onboarding', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/participant/onboarding`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

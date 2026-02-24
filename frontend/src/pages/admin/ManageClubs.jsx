@@ -10,7 +10,7 @@ export default function ManageClubs() {
   const fetchOrganizers = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/admin/organizers', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/admin/organizers`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -42,7 +42,7 @@ export default function ManageClubs() {
       const token = localStorage.getItem('token');
       const generatedPassword = Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 6);
 
-      const response = await fetch('${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/admin/organizers', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/admin/organizers`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ export default function ManageClubs() {
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/admin/organizers/${id}`, {
-        method: 'DELETE',
+        method: `DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -98,7 +98,7 @@ export default function ManageClubs() {
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/admin/organizers/${id}/archive`, {
-        method: 'PUT',
+        method: `PUT',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`

@@ -139,7 +139,7 @@ export default function CreateEvent() {
         merchandiseDetails: payloadMerch
       };
 
-      const response = await fetch('${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/organizer/events', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/organizer/events`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

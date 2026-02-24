@@ -19,7 +19,7 @@ export default function Profile() {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/organizer/profile', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/organizer/profile`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -65,7 +65,7 @@ export default function Profile() {
     
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/organizer/profile', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/organizer/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

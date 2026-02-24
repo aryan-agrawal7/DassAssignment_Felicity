@@ -24,7 +24,7 @@ export default function EventDetails() {
         const token = localStorage.getItem('token');
         const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/participant/events/${id}`, {
           headers: {
-            'Authorization': `Bearer ${token}`
+            `Authorization': `Bearer ${token}`
           }
         });
 
@@ -83,7 +83,7 @@ export default function EventDetails() {
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/participant/events/${id}/register`, {
-        method: 'POST',
+        method: `POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`

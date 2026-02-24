@@ -11,7 +11,7 @@ export default function Dashboard() {
     const fetchEvents = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/organizer/events', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/organizer/events`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

@@ -46,7 +46,7 @@ export default function AdminLogin() {
     setMessage('');
 
     try {
-      const response = await fetch('${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/auth/admin-login', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/auth/admin-login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

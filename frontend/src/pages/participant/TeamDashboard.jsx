@@ -24,7 +24,7 @@ export default function TeamDashboard() {
                 return;
             }
 
-            const response = await fetch('${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/teams/my-teams', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/teams/my-teams`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
 
@@ -44,7 +44,7 @@ export default function TeamDashboard() {
     const fetchEvents = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/participant/events', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/participant/events`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (response.ok) {
@@ -72,7 +72,7 @@ export default function TeamDashboard() {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/teams/create', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/teams/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -105,7 +105,7 @@ export default function TeamDashboard() {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/teams/join', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/teams/join`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

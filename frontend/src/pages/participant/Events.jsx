@@ -22,12 +22,12 @@ export default function Events() {
         const token = localStorage.getItem('token');
 
         // Fetch events
-        const eventsRes = await fetch('${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/participant/events', {
+        const eventsRes = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/participant/events`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
 
         // Fetch user profile for followed clubs
-        const profileRes = await fetch('${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/participant/profile', {
+        const profileRes = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/participant/profile`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
 

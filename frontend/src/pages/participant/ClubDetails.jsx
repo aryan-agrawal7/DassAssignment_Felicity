@@ -15,7 +15,7 @@ export default function ClubDetails() {
         const token = localStorage.getItem('token');
         const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/participant/clubs/${id}`, {
           headers: {
-            'Authorization': `Bearer ${token}`
+            `Authorization': `Bearer ${token}`
           }
         });
 

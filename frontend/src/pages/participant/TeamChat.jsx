@@ -38,7 +38,7 @@ export default function TeamChat() {
         const fetchHistory = async () => {
             try {
                 const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/teams/${id}/messages`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
+                    headers: { `Authorization': `Bearer ${token}` }
                 });
                 if (response.ok) {
                     const data = await response.json();
@@ -52,7 +52,7 @@ export default function TeamChat() {
         fetchHistory();
 
         // Setup Socket
-        const newSocket = io('${import.meta.env.VITE_API_URL || "http://localhost:5000"}');
+        const newSocket = io(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}`);
         setSocket(newSocket);
 
         newSocket.on('connect', () => {

@@ -15,7 +15,7 @@ export default function PasswordResets() {
   const fetchRequests = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/admin/password-resets', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/admin/password-resets`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -49,7 +49,7 @@ export default function PasswordResets() {
       console.log('Token exists:', !!token);
 
       const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/admin/password-resets/${id}`, {
-        method: 'PUT',
+        method: `PUT',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
