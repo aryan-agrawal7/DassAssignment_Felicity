@@ -43,7 +43,7 @@ export default function Dashboard() {
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/participant/tickets/${ticketId}/cancel`, {
-        method: `PUT',
+        method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`
         }

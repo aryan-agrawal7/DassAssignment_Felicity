@@ -24,7 +24,7 @@ export default function EventDetails() {
         // Fetch Event Details
         const eventResponse = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/organizer/events/${id}`, {
           headers: {
-            `Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`
           }
         });
 
@@ -52,7 +52,7 @@ export default function EventDetails() {
         // Fetch Analytics & Participants
         const analyticsResponse = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/organizer/events/${id}/participants`, {
           headers: {
-            `Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`
           }
         });
 
@@ -137,7 +137,7 @@ export default function EventDetails() {
       };
 
       const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/organizer/events/${id}`, {
-        method: `PUT',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
@@ -163,7 +163,7 @@ export default function EventDetails() {
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/organizer/events/${id}`, {
-        method: `PUT',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`

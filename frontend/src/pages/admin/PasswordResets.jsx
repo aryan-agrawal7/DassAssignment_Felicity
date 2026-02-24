@@ -49,7 +49,7 @@ export default function PasswordResets() {
       console.log('Token exists:', !!token);
 
       const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/admin/password-resets/${id}`, {
-        method: `PUT',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`

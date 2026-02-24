@@ -23,7 +23,7 @@ export default function EventAttendance() {
         try {
             const token = localStorage.getItem('token');
             const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/organizer/events/${id}/attendance`, {
-                headers: { `Authorization': `Bearer ${token}` }
+                headers: { 'Authorization': `Bearer ${token}` }
             });
             if (response.ok) {
                 const data = await response.json();
@@ -124,7 +124,7 @@ export default function EventAttendance() {
         try {
             const token = localStorage.getItem('token');
             const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/organizer/events/${id}/scan`, {
-                method: `POST',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
@@ -184,7 +184,7 @@ export default function EventAttendance() {
         try {
             const token = localStorage.getItem('token');
             const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/organizer/events/${id}/manual-override`, {
-                method: `POST',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`

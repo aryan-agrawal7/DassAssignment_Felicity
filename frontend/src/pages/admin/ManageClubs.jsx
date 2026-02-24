@@ -72,7 +72,7 @@ export default function ManageClubs() {
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/admin/organizers/${id}`, {
-        method: `DELETE',
+        method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -98,7 +98,7 @@ export default function ManageClubs() {
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/admin/organizers/${id}/archive`, {
-        method: `PUT',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
