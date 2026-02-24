@@ -15,7 +15,7 @@ export default function PasswordResets() {
   const fetchRequests = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/admin/password-resets', {
+      const response = await fetch('${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/admin/password-resets', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -36,10 +36,7 @@ export default function PasswordResets() {
 
     let newPassword = '';
     if (action === 'Approve') {
-      newPassword = window.prompt("Enter the new password for this organizer:");
-      if (newPassword === null) {
-        return; // User cancelled prompt
-      }
+      newPassword = Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 6);
     } else {
       if (!window.confirm("Are you sure you want to reject this request?")) {
         return;
@@ -51,7 +48,7 @@ export default function PasswordResets() {
       console.log('Sending action:', action, 'with password length:', newPassword.length, 'to ID:', id);
       console.log('Token exists:', !!token);
 
-      const response = await fetch(`http://localhost:5000/api/admin/password-resets/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/admin/password-resets/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -64,7 +61,11 @@ export default function PasswordResets() {
       const data = await response.json();
       console.log('Response data:', data);
       if (response.ok) {
-        setMessage(data.message);
+        if (action === 'Approve') {
+          setMessage(`Password reset approved! The new generated password is: ${newPassword}`);
+        } else {
+          setMessage(data.message);
+        }
         fetchRequests(); // Refresh list
       } else {
         alert(data.message || 'Failed to process request');

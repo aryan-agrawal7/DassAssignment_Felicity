@@ -33,3 +33,8 @@
 
 ## Part C
 - **Bot Protection**: This was the easiest to implement and I was running out of time. The others had complex prerequisites like ensuring the event was concluded and you had attanded the event (attandance) in order to send anonamous feedback so I thought of doing the easier option.
+
+## Assumptions
+- The area of interests collected during onboarding is the same as the organiser category and can be set by the organiser in the profile page. Even though these are selectable during onboarding the user has to write them on their own in the profile page. 
+- The clubs affect the order in which the events are shown but the area of interest has no real usecase in the project.
+- Making sure the randomly generated password reaches the club is out of scope we assume the admin communicates separate from the system.

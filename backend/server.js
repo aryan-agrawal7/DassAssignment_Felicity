@@ -24,14 +24,18 @@ const { Server } = require('socket.io');
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST", "PUT", "DELETE"]
+    origin: ["http://localhost:5173", "https://dass-assignment-felicity-ten.vercel.app"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
   }
 });
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: ["http://localhost:5173", "https://dass-assignment-felicity-ten.vercel.app"],
+  credentials: true
+}));
 app.use(express.json());
 
 // Helper function to send Discord notification
@@ -551,7 +555,7 @@ app.post('/api/organizer/events', async (req, res) => {
       registrationFee: registrationFee ? Number(registrationFee) : 0,
       tags,
       organizerId: decoded.userId,
-      customFields: eventType === 'normal' ? (customFields || []) : [],
+      customFields: (eventType === 'normal' || eventType === 'hackathon') ? (customFields || []) : [],
       merchandiseDetails: eventType === 'merchandise' ? (merchandiseDetails || {}) : undefined
     };
 
@@ -654,7 +658,7 @@ app.put('/api/organizer/events/:id', async (req, res) => {
 
     // Filter customFields and merchandiseDetails based on eventType
     if (updateData.eventType) {
-      if (updateData.eventType === 'normal') {
+      if (updateData.eventType === 'normal' || updateData.eventType === 'hackathon') {
         updateData.merchandiseDetails = undefined;
       } else if (updateData.eventType === 'merchandise') {
         updateData.customFields = [];
@@ -1528,6 +1532,10 @@ app.post('/api/teams/create', async (req, res) => {
 
     const event = await GlobalEvent.findById(eventId);
     if (!event) return res.status(404).json({ message: 'Event not found' });
+
+    if (event.eventType !== 'hackathon') {
+      return res.status(400).json({ message: 'Teams can only be created for hackathon events' });
+    }
 
     // Generate unique invite code
     const inviteCode = Math.random().toString(36).substring(2, 8).toUpperCase();

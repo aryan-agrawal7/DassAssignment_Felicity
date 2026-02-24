@@ -22,7 +22,7 @@ export default function EventDetails() {
     const fetchEvent = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:5000/api/participant/events/${id}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/participant/events/${id}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -69,7 +69,7 @@ export default function EventDetails() {
 
   const handleRegister = async () => {
     // Validate required custom fields
-    if (event?.eventType === 'normal' && event?.customFields) {
+    if ((event?.eventType === 'normal' || event?.eventType === 'hackathon') && event?.customFields) {
       for (const field of event.customFields) {
         if (field.required && (answers[field.label] === '' || answers[field.label] === undefined)) {
           setRegisterMessage(`Please fill in required field: ${field.label}`);
@@ -82,7 +82,7 @@ export default function EventDetails() {
     setRegisterMessage('');
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/participant/events/${id}/register`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/participant/events/${id}/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -159,7 +159,7 @@ export default function EventDetails() {
         </div>
 
         <div style={{ marginTop: '30px' }}>
-          {event.eventType === 'normal' && event.customFields && event.customFields.length > 0 && (
+          {(event.eventType === 'normal' || event.eventType === 'hackathon') && event.customFields && event.customFields.length > 0 && (
             <div style={{ marginBottom: '20px', padding: '15px', border: '1px solid #ccc', borderRadius: '5px' }}>
               <h3 style={{ marginTop: 0 }}>Additional Information</h3>
               {event.customFields.map((field, index) => (

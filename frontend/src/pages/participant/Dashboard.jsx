@@ -13,7 +13,7 @@ export default function Dashboard() {
     const fetchTickets = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:5000/api/participant/my-events', {
+        const response = await fetch('${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/participant/my-events', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -42,7 +42,7 @@ export default function Dashboard() {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/participant/tickets/${ticketId}/cancel`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/participant/tickets/${ticketId}/cancel`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`

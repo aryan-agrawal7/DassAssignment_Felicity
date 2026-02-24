@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const globalEventSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
-  eventType: { type: String, enum: ['normal', 'merchandise'], required: true },
+  eventType: { type: String, enum: ['normal', 'merchandise', 'hackathon'], required: true },
   eligibility: { type: String },
   registrationDeadline: { type: Date, required: true },
   startDate: { type: Date, required: true },

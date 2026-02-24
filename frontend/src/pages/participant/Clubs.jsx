@@ -12,7 +12,7 @@ export default function Clubs() {
     const fetchClubs = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:5000/api/participant/clubs', {
+        const response = await fetch('${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/participant/clubs', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -39,7 +39,7 @@ export default function Clubs() {
     e.stopPropagation(); // Prevent navigating to club details
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/participant/clubs/${clubId}/toggle`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/participant/clubs/${clubId}/toggle`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`

@@ -139,7 +139,7 @@ export default function CreateEvent() {
         merchandiseDetails: payloadMerch
       };
 
-      const response = await fetch('http://localhost:5000/api/organizer/events', {
+      const response = await fetch('${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/organizer/events', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -196,11 +196,12 @@ export default function CreateEvent() {
             <select name="eventType" value={formData.eventType} onChange={handleChange} style={{ width: '100%' }}>
               <option value="normal">Normal</option>
               <option value="merchandise">Merchandise Event</option>
+              <option value="hackathon">Hackathon Event</option>
             </select>
           </div>
 
           {/* Dynamic Content based on Event Type */}
-          {formData.eventType === 'normal' && (
+          {(formData.eventType === 'normal' || formData.eventType === 'hackathon') && (
             <div style={{ padding: '15px', border: '1px solid #ccc', borderRadius: '5px' }}>
               <h3>Custom Registration Form Builder</h3>
               {formData.customFields.map((field, index) => (

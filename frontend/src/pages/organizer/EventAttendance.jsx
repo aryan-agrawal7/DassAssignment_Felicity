@@ -22,7 +22,7 @@ export default function EventAttendance() {
     const fetchAttendance = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:5000/api/organizer/events/${id}/attendance`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/organizer/events/${id}/attendance`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (response.ok) {
@@ -123,7 +123,7 @@ export default function EventAttendance() {
     const processScan = async (ticketId) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:5000/api/organizer/events/${id}/scan`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/organizer/events/${id}/scan`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -183,7 +183,7 @@ export default function EventAttendance() {
         e.preventDefault();
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:5000/api/organizer/events/${id}/manual-override`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/organizer/events/${id}/manual-override`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

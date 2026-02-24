@@ -22,7 +22,7 @@ export default function EventDetails() {
         const token = localStorage.getItem('token');
 
         // Fetch Event Details
-        const eventResponse = await fetch(`http://localhost:5000/api/organizer/events/${id}`, {
+        const eventResponse = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/organizer/events/${id}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -50,7 +50,7 @@ export default function EventDetails() {
         }
 
         // Fetch Analytics & Participants
-        const analyticsResponse = await fetch(`http://localhost:5000/api/organizer/events/${id}/participants`, {
+        const analyticsResponse = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/organizer/events/${id}/participants`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -136,7 +136,7 @@ export default function EventDetails() {
         merchandiseDetails: payloadMerch
       };
 
-      const response = await fetch(`http://localhost:5000/api/organizer/events/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/organizer/events/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -162,7 +162,7 @@ export default function EventDetails() {
   const handleStatusChange = async (newStatus) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/organizer/events/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/organizer/events/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -399,7 +399,7 @@ export default function EventDetails() {
           </div>
 
           {/* Dynamic Content based on Event Type */}
-          {formData.eventType === 'normal' && (
+          {(formData.eventType === 'normal' || formData.eventType === 'hackathon') && (
             <div style={{ padding: '15px', border: '1px solid #ccc', borderRadius: '5px' }}>
               <h3>Custom Registration Form Builder</h3>
               {(formData.customFields || []).map((field, index) => (

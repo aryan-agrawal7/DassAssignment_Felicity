@@ -4,14 +4,13 @@ import { Link, useNavigate } from 'react-router-dom';
 export default function ManageClubs() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [organizers, setOrganizers] = useState([]);
 
   const fetchOrganizers = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/admin/organizers', {
+      const response = await fetch('${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/admin/organizers', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -41,21 +40,22 @@ export default function ManageClubs() {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/admin/organizers', {
+      const generatedPassword = Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 6);
+
+      const response = await fetch('${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/admin/organizers', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password: generatedPassword }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        setMessage('Organizer added successfully!');
+        setMessage(`Organizer added successfully! The generated password is: ${generatedPassword}`);
         setEmail('');
-        setPassword('');
         fetchOrganizers(); // Refresh the list
       } else {
         setMessage(data.message || 'Failed to add organizer');
@@ -71,7 +71,7 @@ export default function ManageClubs() {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/admin/organizers/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/admin/organizers/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -97,7 +97,7 @@ export default function ManageClubs() {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/admin/organizers/${id}/archive`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/admin/organizers/${id}/archive`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -148,16 +148,6 @@ export default function ManageClubs() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
-              style={{ width: '100%' }}
-            />
-          </div>
-          <div>
-            <label>Password:</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
               required
               style={{ width: '100%' }}
             />
