@@ -7,11 +7,11 @@ export default function TeamDashboard() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
-    // For joining a team
+    // joining team states
     const [inviteCode, setInviteCode] = useState('');
     const [joinMessage, setJoinMessage] = useState('');
 
-    // For creating a team
+    // creating team states
     const [events, setEvents] = useState([]);
     const [createData, setCreateData] = useState({ name: '', eventId: '', size: '' });
     const [createMessage, setCreateMessage] = useState('');
@@ -93,8 +93,9 @@ export default function TeamDashboard() {
             } else {
                 setCreateMessage(data.message || 'Failed to create team');
             }
-        } catch (err) {
-            setCreateMessage('Error connecting to server');
+        }
+        catch (err) {
+            setCreateMessage(`Error creating team - ${err.message}`);
         }
     };
 
@@ -124,7 +125,7 @@ export default function TeamDashboard() {
                 setJoinMessage(data.message || 'Failed to join team');
             }
         } catch (err) {
-            setJoinMessage('Error joining team');
+            setJoinMessage(`Error joining team - ${err.message}`);
         }
     };
 
@@ -151,8 +152,7 @@ export default function TeamDashboard() {
 
             <div style={{ padding: '30px', maxWidth: '1000px', margin: '0 auto' }}>
                 <h1>My Teams</h1>
-                <p>Manage your hackathon teams or join a new one using an invite code.</p>
-
+                <p>Manage your hackathon teams</p>
                 <div style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 1fr) minmax(300px, 1fr)', gap: '20px', marginBottom: '30px' }}>
                     {/* Create Team Block */}
                     <div style={{ backgroundColor: '#f8f9fa', padding: '20px', borderRadius: '8px', border: '1px solid #ddd' }}>

@@ -88,7 +88,7 @@ export default function CreateEvent() {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    if (start < today || end < today || deadline < today) {
+    if (end < today || deadline < today) {
       return 'Dates must be in the present or future, not in the past.';
     }
 

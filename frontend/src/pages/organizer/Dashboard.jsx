@@ -42,8 +42,7 @@ export default function Dashboard() {
   const completedEvents = events.filter(e => e.status === 'Completed');
   const totalRegistrations = completedEvents.reduce((acc, curr) => acc + (curr.registeredCount || 0), 0);
   const totalRevenue = completedEvents.reduce((acc, curr) => acc + ((curr.registeredCount || 0) * (curr.registrationFee || 0)), 0);
-  // Attendance tracking is simplified here: assume all registered attended if completed, 
-  // or use the same registeredCount for now if we don't have a distinct DB attendance counter per event.
+  // Assumption total attandance in an event which is over is same as the one (as event over then the variable is not stored in the database explicitly)
   const totalAttendance = totalRegistrations;
 
   return (

@@ -2,27 +2,32 @@ import { Link, Navigate } from 'react-router-dom';
 
 export default function Home() {
   const token = localStorage.getItem('token');
-  
+
   if (token) {
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
       const currentTime = Date.now() / 1000;
-      
+
       if (payload.exp && payload.exp < currentTime) {
         localStorage.removeItem('token');
         localStorage.removeItem('refreshToken');
-      } else {
+      }
+      else {
         const role = payload.userType;
-        
         if (role === 'participant' || role === 'iiit' || role === 'non-iiit') {
           if (payload.filled === false) {
+            // the user is yet to flil their preferences for the first time
             return <Navigate to="/participant/onboarding" replace />;
-          } else {
+          } 
+          //logged in go to dashboard directly
+          else {
             return <Navigate to="/participant/dashboard" replace />;
           }
-        } else if (role === 'organizer') {
+        }
+        else if (role === 'organizer') {
           return <Navigate to="/organizer/dashboard" replace />;
-        } else if (role === 'admin') {
+        }
+        else if (role === 'admin') {
           return <Navigate to="/admin/dashboard" replace />;
         }
       }

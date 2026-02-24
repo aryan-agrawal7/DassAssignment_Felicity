@@ -84,18 +84,6 @@ export default function EventAttendance() {
             } finally {
                 setIsScanning(false);
                 setScanMessage('');
-
-                // Aggressive DOM cleanup to fix white screen glitch
-                setTimeout(() => {
-                    const readerNode = document.getElementById('reader');
-                    if (readerNode) {
-                        readerNode.innerHTML = '';
-                        // Force styles reset to prevent residual white boxes
-                        readerNode.style.display = 'none';
-                        readerNode.style.height = '0px';
-                        readerNode.style.minHeight = '0px';
-                    }
-                }, 100);
             }
         }
     };
@@ -117,7 +105,7 @@ export default function EventAttendance() {
     };
 
     const handleScanError = (errorMessage) => {
-        // Html5Qrcode throws errors constantly when it doesn't see a QR code. Ignore them.
+        // ignore errors when no qr on show.
     };
 
     const processScan = async (ticketId) => {
@@ -161,7 +149,7 @@ export default function EventAttendance() {
                 const parsedData = JSON.parse(decodedText);
                 processScan(parsedData.ticketId || decodedText);
             } catch (e) {
-                processScan(decodedText);
+                setScanMessage('Could not read QR code from image.');
             }
         } catch (err) {
             setScanMessage('Could not read QR code from image.');

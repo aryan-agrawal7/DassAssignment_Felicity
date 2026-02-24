@@ -38,3 +38,4 @@
 - The area of interests collected during onboarding is the same as the organiser category and can be set by the organiser in the profile page. Even though these are selectable during onboarding the user has to write them on their own in the profile page. 
 - The clubs affect the order in which the events are shown but the area of interest has no real usecase in the project.
 - Making sure the randomly generated password reaches the club is out of scope we assume the admin communicates separate from the system.
+- The event can be marked as over/ concluded manually by the event organiser. That means that the event will continue to take attandance even though the date is past the event end date. It has to be manually stopped by the organiser.

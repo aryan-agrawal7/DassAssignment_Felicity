@@ -1,18 +1,13 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
-// Layouts
 import AuthLayout from './layouts/AuthLayout';
 import ParticipantLayout from './layouts/ParticipantLayout';
 import OrganizerLayout from './layouts/OrganizerLayout';
 import AdminLayout from './layouts/AdminLayout';
-
-// Pages
 import Home from './pages/Home';
 import Login from './pages/auth/Login';
 import AdminLogin from './pages/auth/AdminLogin';
 import Register from './pages/auth/Register';
 import Events from './pages/participant/Events';
-import Calendar from './pages/participant/Calendar';
 import Onboarding from './pages/participant/Onboarding';
 import ParticipantDashboard from './pages/participant/Dashboard';
 import Clubs from './pages/participant/Clubs';
@@ -51,7 +46,6 @@ function App() {
           <Route path="onboarding" element={<Onboarding />} />
           <Route path="events" element={<Events />} />
           <Route path="events/:id" element={<ParticipantEventDetails />} />
-          <Route path="calendar" element={<Calendar />} />
           <Route path="clubs" element={<Clubs />} />
           <Route path="clubs/:id" element={<ClubDetails />} />
           <Route path="profile" element={<ParticipantProfile />} />

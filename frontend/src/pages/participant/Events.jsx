@@ -20,8 +20,6 @@ export default function Events() {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-
-        // Fetch events
         const eventsRes = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/participant/events`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -54,8 +52,6 @@ export default function Events() {
     localStorage.removeItem('refreshToken');
     navigate('/');
   };
-
-  // Filter logic
   let sourceEvents = events;
 
   // 1. Search (Fuzzy using Fuse.js)
@@ -66,31 +62,27 @@ export default function Events() {
       distance: 100
     });
     const results = fuse.search(searchTerm);
-    // Unpack fuse results format back to the raw event objects
     sourceEvents = results.map(result => result.item);
   }
 
   const filteredEvents = sourceEvents.filter(event => {
-
-    // 2. Event Type Filter
     const typeMatch = eventTypeFilter === 'all' || event.eventType === eventTypeFilter;
-
-    // 3. Eligibility Filter
     const eligibilityMatch = eligibilityFilter === 'all' ||
       (event.eligibility && event.eligibility.toLowerCase().includes(eligibilityFilter.toLowerCase()));
 
-    // 4. Date Range Filter
     let dateMatch = true;
     if (dateRangeFilter.start && dateRangeFilter.end) {
       const eventStart = new Date(event.startDate);
       const filterStart = new Date(dateRangeFilter.start);
       const filterEnd = new Date(dateRangeFilter.end);
       dateMatch = eventStart >= filterStart && eventStart <= filterEnd;
-    } else if (dateRangeFilter.start) {
+    }
+    else if (dateRangeFilter.start) {
       const eventStart = new Date(event.startDate);
       const filterStart = new Date(dateRangeFilter.start);
       dateMatch = eventStart >= filterStart;
-    } else if (dateRangeFilter.end) {
+    }
+    else if (dateRangeFilter.end) {
       const eventStart = new Date(event.startDate);
       const filterEnd = new Date(dateRangeFilter.end);
       dateMatch = eventStart <= filterEnd;
@@ -107,9 +99,10 @@ export default function Events() {
     return typeMatch && eligibilityMatch && dateMatch && clubMatch;
   });
 
-  // Trending Logic (Top 5 in last 24h based on views)
   const getTrendingEvents = () => {
+    // get yesterdays date
     const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+    // filter events created after yesterdays time and sort by views and get top 5
     return [...events]
       .filter(e => new Date(e.createdAt) >= twentyFourHoursAgo)
       .sort((a, b) => (b.views || 0) - (a.views || 0))
@@ -137,14 +130,15 @@ export default function Events() {
 
       {/* Trending Section */}
       {trendingEvents.length > 0 && (
-        <div style={{ marginTop: '30px', backgroundColor: '#fff3cd', padding: '15px', borderRadius: '8px' }}>
-          <h2>🔥 Trending (Top 5 in last 24h)</h2>
-          <div style={{ display: 'flex', gap: '15px', overflowX: 'auto', paddingBottom: '10px' }}>
+        <div>
+          <h2>Trending (Top 5 in last 24h)</h2>
+          <div>
             {trendingEvents.map(event => (
               <div key={event._id} style={{ minWidth: '250px', border: '1px solid #ffeeba', padding: '15px', borderRadius: '8px', backgroundColor: 'white' }}>
                 <h3 style={{ margin: '0 0 10px 0' }}>{event.name}</h3>
                 <p style={{ margin: '5px 0' }}><strong>By:</strong> {event.organizerId?.name || 'Unknown'}</p>
                 <p style={{ margin: '5px 0' }}><strong>Views:</strong> {event.views || 0}</p>
+                // on clicking we can go to the event details page
                 <Link to={`/participant/events/${event._id}`} style={{ display: 'inline-block', marginTop: '10px', color: '#0056b3' }}>View Details</Link>
               </div>
             ))}
@@ -186,6 +180,7 @@ export default function Events() {
               <option value="ug2">UG2</option>
               <option value="ug3">UG3</option>
               <option value="ug4">UG4</option>
+              <option value="ug5">UG5</option>
               <option value="pg">PG</option>
             </select>
           </div>
